@@ -2,7 +2,6 @@
 import { jsx } from "@emotion/core";
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell } from "recharts";
-import { getChartData } from "./api";
 
 const renderActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180;
@@ -74,13 +73,14 @@ const renderActiveShape = (props: any) => {
   );
 };
 
-const COLORS = ["#00897b", "#d32f2f"];
+const COLORS = ["#00897b", "#ffa726", "#9e9e9e"];
 
 interface Props {
   command?: string;
+  platform?: "google" | "ios";
 }
 
-export const Chart: React.FC<Props> = ({ command }) => {
+export const Chart: React.FC<Props> = ({ command, platform }) => {
   const [chartData, setChartData] = useState<{ name: string; value: number }[]>(
     []
   );
@@ -89,28 +89,38 @@ export const Chart: React.FC<Props> = ({ command }) => {
 
   useEffect(() => {
     async function loadData() {
+      if (platform === "google") {
+        setChartData([
+          {
+            name: "Позитивные",
+            value: 85999,
+          },
+          {
+            name: "Негативные",
+            value: 332448,
+          },
+          {
+            name: "Нейтральные",
+            value: 145617,
+          },
+        ]);
+      } else {
+        setChartData([
+          {
+            name: "Позитивные",
+            value: 2961,
+          },
+          {
+            name: "Негативные",
+            value: 6293,
+          },
+          {
+            name: "Нейтральные",
+            value: 2330,
+          },
+        ]);
+      }
       // TODO: create api
-      //   const data = await getChartData(command);
-      //   setChartData([
-      //     {
-      //       name: "Позитивные",
-      //       value: data.positive,
-      //     },
-      //     {
-      //       name: "Негативные",
-      //       value: data.negative,
-      //     },
-      //   ]);
-      setChartData([
-        {
-          name: "Позитивные",
-          value: 900,
-        },
-        {
-          name: "Негативные",
-          value: 500,
-        },
-      ]);
     }
 
     loadData();
@@ -121,7 +131,7 @@ export const Chart: React.FC<Props> = ({ command }) => {
   }
 
   return (
-    <PieChart width={500} height={400}>
+    <PieChart width={600} height={400}>
       <Pie
         activeIndex={activeIndex}
         activeShape={renderActiveShape}

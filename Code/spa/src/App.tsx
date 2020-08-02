@@ -113,14 +113,35 @@ const App: React.FC = () => {
           ? `Статистика для ${currentComand}`
           : "Статистика для всех команд"}
       </Typography>
-      <div
-        css={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Chart></Chart>
-      </div>
+      {!currentComand && (
+        <div
+          css={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <div
+            css={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6">Google Play</Typography>
+            <Chart platform="google"></Chart>
+          </div>
+          <div
+            css={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6">App Store</Typography>
+            <Chart platform="ios"></Chart>
+          </div>
+        </div>
+      )}
       {currentComand ? (
         <React.Fragment>
           <div
@@ -175,7 +196,7 @@ const App: React.FC = () => {
                       avatar={
                         <Avatar
                           aria-label="recipe"
-                          css={{ backgroundColor: red[500] }}
+                          css={{ backgroundColor: "#ffa726" }}
                         >
                           {command.command.slice(0, 1).toUpperCase()}
                         </Avatar>

@@ -4,15 +4,7 @@ axios.defaults.baseURL = "http://localhost:3001";
 export interface ChartData {
   positive: number;
   negative: number;
-}
-
-export async function getChartData(command?: string) {
-  const { data } = await axios.get<ChartData>("/", {
-    params: {
-      command,
-    },
-  });
-  return data;
+  neutral: number;
 }
 
 export interface CommentCommand {
