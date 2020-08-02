@@ -5,6 +5,7 @@ import uvicorn
 
 from text_analyzer import classify_reviews
 from sentiment_analysis import settings
+from repository import save_comment
 
 
 app = FastAPI()
