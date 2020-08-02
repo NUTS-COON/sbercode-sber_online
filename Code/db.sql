@@ -1,15 +1,15 @@
-create table Comments
+create table comment
 (
-    Id int identity
-        constraint Comments_pk
-            primary key nonclustered,
-    Text nvarchar(max) not null,
-    Label nvarchar(100),
-    Аssessment int not null
-)
-go
+    "Id" serial not null
+        constraint comment_pk
+            primary key,
+    text varchar not null,
+    label varchar(100),
+    mood integer not null
+);
 
-create unique index Comments_Id_uindex
-    on Comments (Id)
-go
+alter table comment owner to postgres;
+
+create unique index comment_id_uindex
+    on comment ("Id");
 
