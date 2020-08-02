@@ -1,0 +1,12 @@
+{
+  "apple": {
+    "negative": 6293,
+    "positive": 2961,
+    "neutral": 2330
+  },
+  "google": {
+    "negative": 332448,
+    "positive": 85999,
+    "neutral": 145617
+  }
+}

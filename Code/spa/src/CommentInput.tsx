@@ -28,17 +28,17 @@ export const CommentInput: React.FC<Props> = ({ onCommentAdded }) => {
 
   const handleAddComment = async () => {
     // TODO: create api
-    // const data = await getCommentCommandAndMood(value);
-    // setCommentInfo(data);
-    // setOpen(true);
-    // onCommentAdded();
-
-    setCommentInfo({
-      command: "DBP.Витрины продаж",
-      mood: Mood.Positive,
-    });
+    const data = await getCommentCommandAndMood(value);
+    setCommentInfo(data);
     setOpen(true);
     onCommentAdded();
+
+    // setCommentInfo({
+    //   command: "DBP.Витрины продаж",
+    //   mood: Mood.Positive,
+    // });
+    // setOpen(true);
+    // onCommentAdded();
   };
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -61,6 +61,8 @@ export const CommentInput: React.FC<Props> = ({ onCommentAdded }) => {
       }}
     >
       <InputBase
+        multiline
+        rows={3}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         css={{ marginLeft: theme.spacing(1), flex: 1 }}

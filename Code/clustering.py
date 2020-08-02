@@ -47,12 +47,13 @@ else:
     tfidf = NewTfidfVectorizer(stop_words=stopwords, tokenizer=tokenizer, ngram_range=(1, 3))
     tfidf.fit(common_corpus + review_corpus)
     dump(tfidf, tfidf_file)
+feature_names = tfidf.get_feature_names()
 print('fit tdidf')
 
 train = list([TaggedDocument(tokenizer(t, True), [i]) for i, t in enumerate(review_corpus)])
 
-for size in [50, 100]:
-    for window in [5, 10]:
+for size in [50]:
+    for window in [5]:
         model_file = '1/doc2vec_s%s_w_%s.model' % (size, window)
         if os.path.exists(model_file):
             model = Doc2Vec.load(model_file)
@@ -62,7 +63,7 @@ for size in [50, 100]:
         X = model.docvecs.vectors_docs
         print('fit doc2vec', size, window)
 
-        for n_clusters in [100]:
+        for n_clusters in [300]:
             clf = KMeans(n_clusters=n_clusters)
             clf.fit(X)
             dump(clf, '1/kmeans_s%s_w%s_cl%s.joblib' % (size, window, n_clusters))
@@ -76,12 +77,13 @@ for size in [50, 100]:
                     d[clf.labels_[i]] = [review_corpus[i]]
 
             all_res = []
+            i = 0
             for cluster, texts in sorted(d.items(), key=lambda x: -len(x[1])):
                 X = tfidf.transform(texts)
-                feature_names = tfidf.get_feature_names()
-                scores = zip(tfidf.get_feature_names(), np.asarray(X.sum(axis=0)).ravel())
+                scores = zip(feature_names, np.asarray(X.sum(axis=0)).ravel())
                 sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
-
+                print('cluster stat %s/%s' % (i, len(d)))
+                i += 1
                 res = {
                     'cluster': int(cluster),
                     'size': len(texts),
