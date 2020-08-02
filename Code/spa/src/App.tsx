@@ -102,17 +102,17 @@ const App: React.FC = () => {
   return (
     <Container fixed>
       <CommentInput onCommentAdded={loadCommands}></CommentInput>
-      <Typography
-        css={{
-          marginTop: theme.spacing(8),
-        }}
-        gutterBottom
-        variant="h4"
-      >
-        {currentComand
-          ? `Статистика для ${currentComand}`
-          : "Статистика для всех команд"}
-      </Typography>
+      {!currentComand && (
+        <Typography
+          css={{
+            marginTop: theme.spacing(8),
+          }}
+          gutterBottom
+          variant="h4"
+        >
+          Статистика для всех команд
+        </Typography>
+      )}
       {!currentComand && (
         <div
           css={{
