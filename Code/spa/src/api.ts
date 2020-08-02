@@ -13,7 +13,7 @@ export interface CommentCommand {
 }
 
 export async function getCommentCommandAndMood(comment: string) {
-  const { data } = await axios.get<CommentCommand>("/", {
+  const { data } = await axios.get<CommentCommand>("/CommentCommandAndMood", {
     params: {
       comment,
     },

@@ -1,7 +1,6 @@
 import pandas as pd
 import pymorphy2
-from Code.core import tokenizer
-import json
+from core import tokenizer
 morph = pymorphy2.MorphAnalyzer()
 
 
@@ -57,8 +56,8 @@ def classify_reviews(reviews):
 
 
 normalize_labels()
-review_corpus = list(set([('. '.join(filter(None, t))).strip('. ') for t in review_data.itertuples(index=False, name=None)]))
-classes = classify_reviews(review_corpus)
+# review_corpus = list(set([('. '.join(filter(None, t))).strip('. ') for t in review_data.itertuples(index=False, name=None)]))
+# classes = classify_reviews(review_corpus)
 
-with open("res.json", "w") as fp:
-    json.dump(classes, fp)
+# with open("res.json", "w") as fp:
+#     json.dump(classes, fp)
