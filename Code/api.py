@@ -28,6 +28,10 @@ async def search(comment):
         emotion = 1
     if emotion_cl > 0.5:
         emotion = 0
+    try:
+        save_comment(comment, res[0] if res else None, emotion)
+    except Exception as e:
+        pass
     return {'command': res[0] if len(res) > 0 else None, 'mood': emotion}
 
 
