@@ -1,8 +1,8 @@
-import nltk
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-import string
+
+from core import tokenizer, stopwords
 
 
 class NewTfidfVectorizer(TfidfVectorizer):
@@ -27,18 +27,7 @@ class NewTfidfVectorizer(TfidfVectorizer):
         return tokens
 
 
-#nltk.download('punkt')
-#nltk.download('stopwords')
-stopwords = nltk.corpus.stopwords.words("russian")
-punkt = string.punctuation + '«»'
-
-
-def tokenizer(text):
-    res = nltk.word_tokenize(text, language="russian")
-    return list(filter(lambda x: x not in punkt, res))
-
-
-common_data = pd.read_json('common.json', orient='records')
+common_data = pd.read_json('common.json', orient='records').head(1000)
 review_data = pd.concat([pd.read_json('apple.json', orient='records').sample(20),
                          pd.read_json('google.json', orient='records').sample(20)])
 common_corpus = [('. '.join(filter(None, t))).strip('. ') for t in common_data.itertuples(index=False, name=None)]
